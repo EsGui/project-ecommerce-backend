@@ -1,6 +1,16 @@
 const express = require("express")
+const bodyParser = require("body-parser")
+const cors = require("cors");
+const registerUserController = require("./controllers/registerUserController");
+const loginUserController = require("./controllers/loginUserController");
+const registerProductController = require("./controllers/registerProductController");
+const saveProductCartController = require("./controllers/saveProductCartController");
+const saveProductPurchased = require("./controllers/saveProductPurchased");
+const saveNotificationController = require("./controllers/saveNotificationsController");
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json())
 
 // Rota inicial
 app.get("/", (req, res) => {
@@ -8,94 +18,33 @@ app.get("/", (req, res) => {
 });
 
 // Rota de cadastro
-app.post("/cadastro", (req, res) => {
-    const {
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-        confirmPassword,
-    } = req.body;
-});
+app.post("/cadastro", registerUserController.registerController);
 
 // Rota de login/autenticação (administrador/cliente)
-app.post("/login", (req, res) => {
-    const {
-        email,
-        password
-    } = req.body;
-});
+app.post("/login", loginUserController.loginController);
 
 // Rota de cadastro de produto,
-app.post("/", (res, req) => {
-    const {
-        name,
-        price,
-        image,
-        description,
-        category,
-    } = req.body
-});
+app.post("/register-product", registerProductController.registerProduct);
 
 // Rota de listar produtos
-app.get("/list-product", async (req, res) => {
-    return res.status(200).json({ message: "Listar produtos na tela inicial" })
-});
+app.get("/list-product", registerProductController.listProduct);
 
 // Rota de salvar produto no carrinho
-app.post("/cart", (req, res) => {
-    const {
-        name,
-        price,
-        image,
-    } = req.body
-})
+app.post("/cart", saveProductCartController.saveProduct)
 
 // Rota de listar produtos no carrinho
-app.get("/list-cart", () => {
-    return res.status(200).json({ message: "Listar produtos no carrinho" });
-});
+app.get("/list-cart", saveProductCartController.listProductCart);
 
 // Rota de salvar produtos comprados
-app.post("/save-product-purchased", () => {
-    const {
-        name,
-        image,
-        price
-    } = req.res
-});
+app.post("/save-product-purchased", saveProductPurchased.saveProduct);
 
 // Rota de listar produtos comprados
-app.get("/list-product-purchased", (req, res) => {
-    return res.status(200).json({ message: "Listar produtos comprados" })
-});
+app.get("/list-product-purchased", saveProductPurchased.listProduct);
 
 // Rota de salvar notificações
-app.post("/save-notification", (req, res) => {
-    const {
-        message,
-        image
-    } = req.body
-})
+app.post("/save-notification", saveNotificationController.saveNotification)
 
 // Rota de listar notificações
-app.get("/list-notification", (req, res) => {
-    return res.status(200).json({ message: "Listar notificações" })
-})
-
-
-// Rota de salvar mensagens privadas dos usuários
-app.post("/save-message", (req, res) => {
-    const {
-        message,
-    } = req.body;
-})
-
-// Rota de listar mensagens privadas dos usuários
-app.get("/list-message", (req, res) => {
-    return res.status(200).json({ message: "Listar mensagens privadas dos usuários" })
-})
-
+app.get("/list-notification", saveNotificationController.listNotification);
 
 module.exports = app;

@@ -1,5 +1,7 @@
+const loginUserService = require("../services/loginUserService");
+
 const registerUserController = {
-    registerController: (req, res) => {
+    registerController: async (req, res) => {
         const {
             firstName,
             lastName,
@@ -9,7 +11,22 @@ const registerUserController = {
             confirmPassword,
         } = req.body;
     
-        console.log({
+        const arrayData = [
+            firstName,
+            lastName,
+            userName,
+            email,
+            password,
+            confirmPassword,
+        ]
+
+        const validate = await loginUserService.validateData(arrayData, userName, password, confirmPassword)
+
+        if (!validate.pass) {
+            return res.status(validate.status).json({ message: validate.message });
+        }
+
+        await loginUserService.createUser({
             firstName,
             lastName,
             userName,
@@ -17,6 +34,8 @@ const registerUserController = {
             password,
             confirmPassword,
         })
+
+        return res.status(200).json({ message: "Cadastro realizado com sucesso!" });
     }
 }
 

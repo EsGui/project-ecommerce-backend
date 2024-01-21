@@ -5,6 +5,8 @@ const RegisterModel = (sequelize, DataTypes) => {
         userName: DataTypes.STRING,
         email: DataTypes.STRING,
         password: DataTypes.STRING
+    }, {
+        tableName: "register_users"
     });
     return Register;
 }

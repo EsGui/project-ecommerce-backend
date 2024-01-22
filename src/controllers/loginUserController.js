@@ -4,6 +4,8 @@ const loginUserController = {
             email,
             password
         } = req.body;
+
+        console.log(email, password)
     }
 }
 

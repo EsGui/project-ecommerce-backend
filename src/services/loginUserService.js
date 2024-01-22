@@ -42,7 +42,6 @@ const loginUserService = {
         userName,
         email,
         password,
-        confirmPassword,
     }) => {
         await Register.create({
             firstName,
@@ -50,7 +49,6 @@ const loginUserService = {
             userName,
             email,
             password,
-            confirmPassword,
         })
     }
 }

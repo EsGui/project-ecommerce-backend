@@ -1,4 +1,5 @@
 const loginUserService = require("../services/loginUserService");
+const bcrypt = require("bcrypt");
 
 const registerUserController = {
     registerController: async (req, res) => {
@@ -26,13 +27,14 @@ const registerUserController = {
             return res.status(validate.status).json({ message: validate.message });
         }
 
+        const cryptPassword = await bcrypt.hash(password, 10);
+
         await loginUserService.createUser({
             firstName,
             lastName,
             userName,
             email,
-            password,
-            confirmPassword,
+            password: cryptPassword,
         })
 
         return res.status(200).json({ message: "Cadastro realizado com sucesso!" });

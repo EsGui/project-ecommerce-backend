@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 // Rota de cadastro
 app.post("/cadastro", registerUserController.registerController);
 
-// Rota de login/autenticação (administrador/cliente)
+// Rota de login/autenticação
 app.post("/login", loginUserController.loginController);
 
 // Rota de cadastro de produto,

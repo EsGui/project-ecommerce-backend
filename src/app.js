@@ -23,6 +23,9 @@ app.post("/cadastro", registerUserController.registerController);
 // Rota de login/autenticação
 app.post("/login", loginUserController.loginController);
 
+// Persistir login de usuário
+app.post("/persist-login", loginUserController.persistLogin)
+
 // Rota de cadastro de produto,
 app.post("/register-product", registerProductController.registerProduct);
 

@@ -8,6 +8,11 @@ const RegisterModel = (sequelize, DataTypes) => {
     }, {
         tableName: "register_users"
     });
+
+    Register.associate = (db) => {
+        Register.hasMany(db.RegisterProducts, { as: "productUser", foreignKey: "userId" })
+    }
+
     return Register;
 }
 

@@ -1,4 +1,4 @@
-const { Register } = require("../models");
+const { Register, RegisterProducts } = require("../models");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
@@ -31,8 +31,13 @@ const loginUserController = {
         
         const verifyToken = jwt.verify(authorization, process.env.JWT_SECRET);
 
-        const user = await Register.findOne({ where: { email: verifyToken.email }, 
-            attributes: { exclude: ["password"] } });
+        const user = await Register.findOne({ 
+            where: { email: verifyToken.email }, 
+            attributes: { exclude: ["password"] },
+            include: [
+                { model: RegisterProducts, as: "productUser" }
+            ]
+        });
 
         if (!user) {
             return res.status(400).json({ message: "Algo deu errado!" });

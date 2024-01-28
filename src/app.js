@@ -7,10 +7,13 @@ const registerProductController = require("./controllers/registerProductControll
 const saveProductCartController = require("./controllers/saveProductCartController");
 const saveProductPurchased = require("./controllers/saveProductPurchased");
 const saveNotificationController = require("./controllers/saveNotificationsController");
+const multerImageProduct = require("./uploadArquivos/uploadImageProduct")
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(express.static('public'))
+app.use(express.static('src/uploads'));
 
 // Rota inicial
 app.get("/", (req, res) => {
@@ -27,7 +30,7 @@ app.post("/login", loginUserController.loginController);
 app.post("/persist-login", loginUserController.persistLogin)
 
 // Rota de cadastro de produto,
-app.post("/register-product", registerProductController.registerProduct);
+app.post("/register-product", multerImageProduct.single("file"), registerProductController.registerProduct);
 
 // Rota de listar produtos
 app.get("/list-product", registerProductController.listProduct);

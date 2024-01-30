@@ -35,6 +35,9 @@ app.post("/register-product", multerImageProduct.single("file"), registerProduct
 // Rota de listar produtos
 app.get("/list-product", registerProductController.listProduct);
 
+// Rota para listar produto especifico
+app.post("/list-product-especific", registerProductController.listProductSpecific)
+
 // Rota de salvar produto no carrinho
 app.post("/cart", saveProductCartController.saveProduct)
 

@@ -1,8 +1,8 @@
-'use strict'
+"use strict"
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable("register_products", {
+        await queryInterface.createTable("register_products_cart", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -12,16 +12,10 @@ module.exports = {
             name: {
                 type: Sequelize.STRING
             },
-            slug: {
-                type: Sequelize.STRING,
-            },
             price: {
                 type: Sequelize.INTEGER
             },
             image: {
-                type: Sequelize.STRING,
-            },
-            description: {
                 type: Sequelize.STRING,
             },
             category: {
@@ -33,6 +27,15 @@ module.exports = {
                 onDelete: "CASCADE",
                 references: {
                     model: "register_users",
+                    key: "id"
+                }
+            },
+            productId: {
+                type: Sequelize.INTEGER,
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+                references: {
+                    model: "register_products",
                     key: "id"
                 }
             },
@@ -49,6 +52,6 @@ module.exports = {
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable("register_products")
+        await queryInterface.dropTable("register_products_cart")
     }
 }

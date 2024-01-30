@@ -21,6 +21,7 @@ const registerProductController = {
         await registerProductService.registerProduct({
             name,
             price,
+            slug: name.toLowerCase().replace(/ /gi, "-"),
             image: `http://localhost:3001/image-product/${req.file.filename}`,
             description,
             userId,
@@ -35,7 +36,19 @@ const registerProductController = {
     listProduct: async (req, res) => {
         const products = await registerProductService.listProducts()
         return res.status(200).json({ products })
-    }
+    },
+
+    listProductSpecific: async (req, res) => {
+        const {
+            slug
+        } = req.body
+        console.log(slug)
+        const product = await registerProductService.listProductSpecific(slug);
+        if (!product) {
+            return res.status(400).json({ error: "Produto não encontrado" });
+        }
+        return res.status(200).json({ product })
+    } 
 }
 
 module.exports = registerProductController;

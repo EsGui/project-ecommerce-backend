@@ -1,10 +1,33 @@
+const saveProductCartService = require("../services/saveProductCartService");
+
 const saveProductCartController = {
-    saveProduct: (req, res) => {
+    saveProduct: async (req, res) => {
         const {
             name,
             price,
             image,
+            userId,
+            productId,
+            category,
         } = req.body
+
+        console.log({
+            name,
+            price,
+            image,
+            userId,
+            productId,
+            category,
+        })
+
+        // await saveProductCartService.save({
+        //     name,
+        //     price,
+        //     image,
+        //     userId,
+        //     productId,
+        //     category,
+        // })
     },
 
     listProductCart: (req, res) => {

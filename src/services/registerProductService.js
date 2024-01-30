@@ -4,6 +4,7 @@ const registerProductService = {
     registerProduct: async ({
         name,
         price,
+        slug,
         image,
         description,
         userId,
@@ -13,6 +14,7 @@ const registerProductService = {
             name,
             price,
             image,
+            slug,
             description,
             userId,
             category,
@@ -24,6 +26,14 @@ const registerProductService = {
             include: [{ model: Register, as: "userProduct" }]
         });
         return products
+    },
+
+    listProductSpecific: async (slug) => {
+        const product = await RegisterProducts.findOne({ 
+            where: { slug: slug },
+            include: [{ model: Register, as: "userProduct", attributes: { exclude: ["password"]} }],
+        });
+        return product;
     }
 }
 

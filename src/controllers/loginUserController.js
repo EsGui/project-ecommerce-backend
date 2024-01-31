@@ -1,4 +1,4 @@
-const { Register, RegisterProducts } = require("../models");
+const { Register, RegisterProducts, RegisterProductsCart } = require("../models");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
@@ -35,7 +35,8 @@ const loginUserController = {
             where: { email: verifyToken.email }, 
             attributes: { exclude: ["password"] },
             include: [
-                { model: RegisterProducts, as: "productUser" }
+                { model: RegisterProducts, as: "productUser" },
+                { model: RegisterProductsCart, as: "userProductCart" }
             ]
         });
 

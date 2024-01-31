@@ -11,6 +11,7 @@ const RegisterModel = (sequelize, DataTypes) => {
 
     Register.associate = (db) => {
         Register.hasMany(db.RegisterProducts, { as: "productUser", foreignKey: "userId" })
+        Register.hasMany(db.RegisterProductsCart, { as: "userProductCart", foreignKey: "userId" })
     }
 
     return Register;

@@ -10,6 +10,10 @@ const RegisterProductsCartModel = (sequelize, DataTypes) => {
         tableName: "register_products_cart"
     });
 
+    RegisterProductsCart.associate = (db) => {
+        RegisterProductsCart.belongsTo(db.Register, { as: "cartProductUser", foreignKey: "userId" })
+    }
+
     return RegisterProductsCart;
 }
 

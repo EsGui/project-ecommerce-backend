@@ -1,4 +1,4 @@
-const { RegisterProducts, Register } = require("../models")
+const { RegisterProducts, Register, CommentsProduct } = require("../models")
 
 const registerProductService = {
     registerProduct: async ({
@@ -28,10 +28,15 @@ const registerProductService = {
         return products
     },
 
-    listProductSpecific: async (slug) => {
+    listProductSpecific: async (id, slug) => {
         const product = await RegisterProducts.findOne({ 
-            where: { slug: slug },
-            include: [{ model: Register, as: "userProduct", attributes: { exclude: ["password"]} }],
+            where: { id, slug },
+            include: [
+                { model: Register, as: "userProduct", attributes: { exclude: ["password"]} },
+                { model: CommentsProduct, as: "productComment", include: [
+                    {  model: Register, as: "commentUser" }
+                ]}
+            ],
         });
         return product;
     }

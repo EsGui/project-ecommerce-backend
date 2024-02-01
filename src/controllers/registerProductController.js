@@ -40,14 +40,15 @@ const registerProductController = {
 
     listProductSpecific: async (req, res) => {
         const {
+            id,
             slug
         } = req.body
-        console.log(slug)
-        const product = await registerProductService.listProductSpecific(slug);
+        console.log(id)
+        const product = await registerProductService.listProductSpecific(id, slug);
         if (!product) {
             return res.status(400).json({ error: "Produto não encontrado" });
         }
-        return res.status(200).json({ product })
+        return res.status(200).json({ product });
     } 
 }
 

@@ -7,7 +7,8 @@ const registerProductController = require("./controllers/registerProductControll
 const saveProductCartController = require("./controllers/saveProductCartController");
 const saveProductPurchased = require("./controllers/saveProductPurchased");
 const saveNotificationController = require("./controllers/saveNotificationsController");
-const multerImageProduct = require("./uploadArquivos/uploadImageProduct")
+const multerImageProduct = require("./uploadArquivos/uploadImageProduct");
+const registerCommentsProductController = require("./controllers/registerCommentsProductController");
 
 const app = express();
 app.use(cors());
@@ -34,6 +35,9 @@ app.post("/register-product", multerImageProduct.single("file"), registerProduct
 
 // Rota de listar produtos
 app.get("/list-product", registerProductController.listProduct);
+
+// Rota de cadastro de comentários dos produtos
+app.post("/register-comments-product", registerCommentsProductController.registerComments);
 
 // Rota para listar produto especifico
 app.post("/list-product-especific", registerProductController.listProductSpecific)

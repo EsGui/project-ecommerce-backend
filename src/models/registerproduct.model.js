@@ -13,6 +13,7 @@ const RegisterProductsModel = (sequelize, DataTypes) => {
 
     RegisterProducts.associate = (db) => {
         RegisterProducts.belongsTo(db.Register, { as: "userProduct", foreignKey: "userId" })
+        RegisterProducts.hasMany(db.CommentsProduct, { as: "productComment", foreignKey: "productId" })
     }
     
     return RegisterProducts;

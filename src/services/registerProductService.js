@@ -4,6 +4,7 @@ const registerProductService = {
     registerProduct: async ({
         name,
         price,
+        total,
         slug,
         image,
         description,
@@ -13,6 +14,7 @@ const registerProductService = {
         await RegisterProducts.create({
             name,
             price,
+            total,
             image,
             slug,
             description,

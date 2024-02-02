@@ -5,24 +5,17 @@ const saveProductCartController = {
         const {
             name,
             price,
+            total,
             image,
             userId,
             productId,
             category,
-        } = req.body
-
-        console.log({
-            name,
-            price,
-            image,
-            userId,
-            productId,
-            category,
-        })
+        } = req.body;
 
         await saveProductCartService.save({
             name,
             price,
+            total,
             image,
             userId,
             productId,
@@ -41,7 +34,7 @@ const saveProductCartController = {
     listProductCart: async (req, res) => {
         const productsInCart = await saveProductCartService.listAll()
         return res.status(200).json({ productsInCart });
-    }
+    },
 }
 
 module.exports = saveProductCartController

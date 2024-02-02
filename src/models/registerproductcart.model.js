@@ -2,6 +2,7 @@ const RegisterProductsCartModel = (sequelize, DataTypes) => {
     const RegisterProductsCart = sequelize.define("RegisterProductsCart", {
         name: DataTypes.STRING,
         price: DataTypes.INTEGER,
+        total: DataTypes.INTEGER,
         image: DataTypes.STRING,
         category: DataTypes.STRING,
         userId: DataTypes.INTEGER,

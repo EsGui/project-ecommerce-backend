@@ -5,22 +5,16 @@ const registerProductController = {
         const {
             name,
             price,
+            total,
             description,
             userId,
             category,
         } = req.body
 
-        console.log({
-            name,
-            price,
-            description,
-            userId,
-            category,
-        })
-
         await registerProductService.registerProduct({
             name,
             price,
+            total,
             slug: name.toLowerCase().replace(/ /gi, "-"),
             image: `http://localhost:3001/image-product/${req.file.filename}`,
             description,

@@ -4,6 +4,7 @@ const saveProductCartService = {
     save: async ({
         name,
         price,
+        total,
         image,
         userId,
         productId,
@@ -12,6 +13,7 @@ const saveProductCartService = {
         await RegisterProductsCart.create({
             name,
             price,
+            total,
             image,
             userId,
             productId,
@@ -26,7 +28,6 @@ const saveProductCartService = {
             where: { id }
         })
     },
-
     listAll: async () => {
         const productInCart = await RegisterProductsCart.findAll();
         return productInCart;

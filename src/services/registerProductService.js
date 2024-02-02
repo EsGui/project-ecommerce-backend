@@ -1,4 +1,4 @@
-const { RegisterProducts, Register, CommentsProduct } = require("../models")
+const { RegisterProducts, Register, CommentsProduct, ResponseComment } = require("../models")
 
 const registerProductService = {
     registerProduct: async ({
@@ -34,7 +34,8 @@ const registerProductService = {
             include: [
                 { model: Register, as: "userProduct", attributes: { exclude: ["password"]} },
                 { model: CommentsProduct, as: "productComment", include: [
-                    {  model: Register, as: "commentUser" }
+                    { model: Register, as: "commentUser" },
+                    { model: ResponseComment, as: "commentResponse" }
                 ]}
             ],
         });

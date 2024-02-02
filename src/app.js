@@ -9,6 +9,7 @@ const saveProductPurchased = require("./controllers/saveProductPurchased");
 const saveNotificationController = require("./controllers/saveNotificationsController");
 const multerImageProduct = require("./uploadArquivos/uploadImageProduct");
 const registerCommentsProductController = require("./controllers/registerCommentsProductController");
+const registerResponseCommentsController = require("./controllers/registerResponseCommentsController");
 
 const app = express();
 app.use(cors());
@@ -38,6 +39,9 @@ app.get("/list-product", registerProductController.listProduct);
 
 // Rota de cadastro de comentários dos produtos
 app.post("/register-comments-product", registerCommentsProductController.registerComments);
+
+// Rota de resposta aos comentários dos produtos
+app.post("/register-response-comment", registerResponseCommentsController.saveComment);
 
 // Rota para listar produto especifico
 app.post("/list-product-especific", registerProductController.listProductSpecific)

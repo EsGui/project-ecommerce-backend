@@ -10,6 +10,7 @@ const CommentsProductModel = (sequelize, DataTypes) => {
     CommentsProduct.associate = (db) => {
         CommentsProduct.belongsTo(db.Register, { as: "commentUser", foreignKey: "userId" });
         CommentsProduct.belongsTo(db.RegisterProducts, { as: "commentProduct", foreignKey: "productId" })
+        CommentsProduct.hasOne(db.ResponseComment, { as: "commentResponse", foreignKey: "commentId" })
     }
 
     return CommentsProduct;

@@ -55,6 +55,9 @@ app.get("/list-cart", saveProductCartController.listProductCart);
 // Rota de deletar produtos do carrinho
 app.post("/delete-cart", saveProductCartController.deleteProduct);
 
+// Rota de atualizar produtos do carrinho
+app.post("/update-cart", saveProductCartController.updateProductCart)
+
 // Rota de salvar produtos comprados
 app.post("/save-product-purchased", saveProductPurchased.saveProduct);
 

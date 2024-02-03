@@ -5,6 +5,7 @@ const saveProductCartController = {
         const {
             name,
             price,
+            quantity,
             total,
             image,
             userId,
@@ -15,6 +16,7 @@ const saveProductCartController = {
         await saveProductCartService.save({
             name,
             price,
+            quantity,
             total,
             image,
             userId,
@@ -35,6 +37,22 @@ const saveProductCartController = {
         const productsInCart = await saveProductCartService.listAll()
         return res.status(200).json({ productsInCart });
     },
+
+    updateProductCart: async (req, res) => {
+        const {
+            id,
+            quantity
+        } = req.body;
+
+        console.log({
+            id,
+            quantity
+        })
+
+        await saveProductCartService.update({ id, quantity });
+
+        return res.status(200).json({ message: "Produto atualizado com sucesso!" })
+    }
 }
 
-module.exports = saveProductCartController
+module.exports = saveProductCartController;

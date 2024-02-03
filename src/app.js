@@ -61,16 +61,4 @@ app.post("/delete-cart", saveProductCartController.deleteProduct);
 // Rota de atualizar produtos do carrinho
 app.post("/update-cart", saveProductCartController.updateProductCart)
 
-// Rota de salvar produtos comprados
-app.post("/save-product-purchased", saveProductPurchased.saveProduct);
-
-// Rota de listar produtos comprados
-app.get("/list-product-purchased", saveProductPurchased.listProduct);
-
-// Rota de salvar notificações
-app.post("/save-notification", saveNotificationController.saveNotification)
-
-// Rota de listar notificações
-app.get("/list-notification", saveNotificationController.listNotification);
-
 module.exports = app;

@@ -43,7 +43,17 @@ const registerProductController = {
             return res.status(400).json({ error: "Produto não encontrado" });
         }
         return res.status(200).json({ product });
-    } 
+    },
+
+    deleteProduct: async (req, res) => {
+        const {
+            id
+        } = req.body;
+
+        await registerProductService.deleteProduct({ id });
+
+        return res.status(200).json({ message: "Produto deletado com sucesso" })
+    }
 }
 
 module.exports = registerProductController;

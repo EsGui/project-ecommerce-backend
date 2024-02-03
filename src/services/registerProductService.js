@@ -42,6 +42,9 @@ const registerProductService = {
             ],
         });
         return product;
+    },
+    deleteProduct: async ({ id }) => {
+        await RegisterProducts.destroy({ where: { id } })
     }
 }
 

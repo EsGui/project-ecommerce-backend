@@ -37,6 +37,9 @@ app.post("/register-product", multerImageProduct.single("file"), registerProduct
 // Rota de listar produtos
 app.get("/list-product", registerProductController.listProduct);
 
+// Rota de deletar produtos
+app.post("/delete-product", registerProductController.deleteProduct);
+
 // Rota de cadastro de comentários dos produtos
 app.post("/register-comments-product", registerCommentsProductController.registerComments);
 

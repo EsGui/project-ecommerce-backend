@@ -1,3 +1,4 @@
+const validateDataProduct = require("../middlewares/validateDataProducts");
 const registerProductService = require("../services/registerProductService")
 
 const registerProductController = {
@@ -9,22 +10,28 @@ const registerProductController = {
             description,
             userId,
             category,
-        } = req.body
+        } = req.body;
+
+        const validateString = validateDataProduct.validateString([name, description, category])
+        const validateNumber = validateDataProduct.validateNumber([total, price]);
+        const validate = [name, description, category, total, price].some((element) => element == "");
+
+        if (validate || validateString || validateNumber) {
+            return res.status(400).json({ message: "Preencha todos os campos corretamente!" })
+        }
 
         await registerProductService.registerProduct({
             name,
             price,
             total,
             slug: name.toLowerCase().replace(/ /gi, "-"),
-            image: `http://localhost:3001/image-product/${req.file.filename}`,
+            image: `http://localhost:3001/image-product/${req && req.file && req.file.filename}`,
             description,
             userId,
             category,
         })
 
-        // http://localhost:3001/image-product/${req.file.pathname}
-
-        return res.status(200).json({ message: "Cadastrando produto" })
+        return res.status(200).json({ message: "Produto cadastrado com sucesso" });
     },
 
     listProduct: async (req, res) => {

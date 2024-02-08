@@ -12,9 +12,40 @@ const registerProductController = {
             category,
         } = req.body;
 
+        console.log({
+            name,
+            price,
+            total,
+            description,
+            userId,
+            category,
+        })
+
+        console.log({
+            price: Number(price),
+            total: Number(total),
+        })
+
+        console.log("teste ===>>>", typeof NaN)
+
+        console.log({
+            name: typeof name,
+            price: typeof price,
+            total: typeof total,
+            description: typeof description,
+            userId: typeof userId,
+            category: typeof category,
+        })
+
         const validateString = validateDataProduct.validateString([name, description, category])
-        const validateNumber = validateDataProduct.validateNumber([total, price]);
-        const validate = [name, description, category, total, price].some((element) => element == "");
+        const validateNumber = validateDataProduct.validateNumber([Number(total), Number(price)]);
+        const validate = [name, description, category, total, price].some((element) => !element);
+
+        console.log({
+            validateString,
+            validateNumber,
+            validate,
+        })
 
         if (validate || validateString || validateNumber) {
             return res.status(400).json({ message: "Preencha todos os campos corretamente!" })
@@ -22,8 +53,8 @@ const registerProductController = {
 
         await registerProductService.registerProduct({
             name,
-            price,
-            total,
+            price: Number(price),
+            total: Number(total),
             slug: name.toLowerCase().replace(/ /gi, "-"),
             image: `http://localhost:3001/image-product/${req && req.file && req.file.filename}`,
             description,

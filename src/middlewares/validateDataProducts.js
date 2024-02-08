@@ -1,11 +1,11 @@
 const validateDataProduct = {
     validateString: (array) => {
-        const validate = array.some((element) => (typeof element) != "string");
+        const validate = array.some((element) => (typeof element) != 'string');
         return validate
     },
 
     validateNumber: (array) => {
-        const validate = array.some((element) => (typeof element) != "number");
+        const validate = array.some((element) => isNaN(element));
         return validate
     }
 }

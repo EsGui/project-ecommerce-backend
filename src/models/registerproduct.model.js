@@ -3,6 +3,7 @@ const RegisterProductsModel = (sequelize, DataTypes) => {
         name: DataTypes.STRING,
         price: DataTypes.INTEGER,
         total: DataTypes.INTEGER,
+        fileNameImage: DataTypes.STRING,
         slug: DataTypes.STRING,
         image: DataTypes.STRING,
         description: DataTypes.STRING,

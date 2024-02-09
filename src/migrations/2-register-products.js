@@ -15,6 +15,9 @@ module.exports = {
             slug: {
                 type: Sequelize.STRING,
             },
+            fileNameImage: {
+                type: Sequelize.STRING,
+            },
             price: {
                 type: Sequelize.INTEGER,
             },

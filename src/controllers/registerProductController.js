@@ -1,5 +1,6 @@
 const validateDataProduct = require("../middlewares/validateDataProducts");
 const registerProductService = require("../services/registerProductService")
+const fs = require("fs");
 
 const registerProductController = {
     registerProduct: async (req, res) => {
@@ -57,6 +58,7 @@ const registerProductController = {
             total: Number(total),
             slug: name.toLowerCase().replace(/ /gi, "-"),
             image: `http://localhost:3001/image-product/${req && req.file && req.file.filename}`,
+            fileNameImage: `${ req && req.file && req.file.filename }`,
             description,
             userId,
             category,
@@ -87,6 +89,10 @@ const registerProductController = {
         const {
             id
         } = req.body;
+
+        const deleteImageProduct = await registerProductService.listProductId({ id });
+
+        fs.unlinkSync(`./src/uploads/image-product/${ deleteImageProduct.fileNameImage }`)
 
         await registerProductService.deleteProduct({ id });
 

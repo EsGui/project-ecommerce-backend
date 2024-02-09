@@ -5,6 +5,7 @@ const registerProductService = {
         name,
         price,
         total,
+        fileNameImage,
         slug,
         image,
         description,
@@ -14,6 +15,7 @@ const registerProductService = {
         await RegisterProducts.create({
             name,
             price,
+            fileNameImage,
             total,
             image,
             slug,
@@ -43,6 +45,12 @@ const registerProductService = {
         });
         return product;
     },
+
+    listProductId: async ({ id }) => {
+        const product = await RegisterProducts.findOne({ where: { id } });
+        return product
+    },
+
     deleteProduct: async ({ id }) => {
         await RegisterProducts.destroy({ where: { id } })
     }

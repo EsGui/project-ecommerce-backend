@@ -1,6 +1,22 @@
-const registerResponseCommentsService = require("../services/registerResponseCommentsService");
+const registerCommentsProductService = require("../services/registerCommentsProductServices");
 
-const registerResponseCommentsController = {
+const registerCommentsProductController = {
+    registerComments: async (req, res) => {
+        const {
+            comment,
+            userId,
+            productId,
+        } = req.body;
+
+        await registerCommentsProductService.register({
+            comment,
+            userId,
+            productId,
+        })
+
+        return res.status(200).json({ message: "Comentário adicionado com sucesso!" });
+    },
+
     saveComment: async (req, res) => {
         const {
             response,
@@ -23,4 +39,4 @@ const registerResponseCommentsController = {
     }
 }
 
-module.exports = registerResponseCommentsController
+module.exports = registerCommentsProductController;

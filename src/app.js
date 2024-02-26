@@ -1,13 +1,11 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors");
-const registerUserController = require("./controllers/registerUserController");
-const loginUserController = require("./controllers/loginUserController");
-const registerProductController = require("./controllers/registerProductController");
-const saveProductCartController = require("./controllers/saveProductCartController");
 const multerImageProduct = require("./uploadArquivos/uploadImageProduct");
-const registerCommentsProductController = require("./controllers/registerCommentsProductController");
-const registerResponseCommentsController = require("./controllers/registerResponseCommentsController");
+const userControler = require("./controllers/userController");
+const productController = require("./controllers/productController");
+const commentsProductController = require("./controllers/commentsProductController");
+const productCartController = require("./controllers/productCartController");
 
 const app = express();
 app.use(cors());
@@ -21,42 +19,42 @@ app.get("/", (req, res) => {
 });
 
 // Rota de cadastro
-app.post("/cadastro", registerUserController.registerController);
+app.post("/cadastro", userControler.registerController);
 
 // Rota de login/autenticação
-app.post("/login", loginUserController.loginController);
+app.post("/login", userControler.loginController);
 
 // Persistir login de usuário
-app.post("/persist-login", loginUserController.persistLogin)
+app.post("/persist-login", userControler.persistLogin)
 
 // Rota de cadastro de produto,
-app.post("/register-product", multerImageProduct.single("file"), registerProductController.registerProduct);
+app.post("/register-product", multerImageProduct.single("file"), productController.registerProduct);
 
 // Rota de listar produtos
-app.get("/list-product", registerProductController.listProduct);
+app.get("/list-product", productController.listProduct);
 
 // Rota de deletar produtos
-app.post("/delete-product", registerProductController.deleteProduct);
+app.post("/delete-product", productController.deleteProduct);
 
 // Rota de cadastro de comentários dos produtos
-app.post("/register-comments-product", registerCommentsProductController.registerComments);
+app.post("/register-comments-product", commentsProductController.registerComments);
 
 // Rota de resposta aos comentários dos produtos
-app.post("/register-response-comment", registerResponseCommentsController.saveComment);
+app.post("/register-response-comment", commentsProductController.saveComment);
 
 // Rota para listar produto especifico
-app.post("/list-product-especific", registerProductController.listProductSpecific)
+app.post("/list-product-especific", productController.listProductSpecific)
 
 // Rota de salvar produto no carrinho
-app.post("/cart", saveProductCartController.saveProduct)
+app.post("/cart", productCartController.saveProduct)
 
 // Rota de listar produtos no carrinho
-app.get("/list-cart", saveProductCartController.listProductCart);
+app.get("/list-cart", productCartController.listProductCart);
 
 // Rota de deletar produtos do carrinho
-app.post("/delete-cart", saveProductCartController.deleteProduct);
+app.post("/delete-cart", productCartController.deleteProduct);
 
 // Rota de atualizar produtos do carrinho
-app.post("/update-cart", saveProductCartController.updateProductCart)
+app.post("/update-cart", productCartController.updateProductCart)
 
 module.exports = app;

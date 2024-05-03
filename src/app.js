@@ -33,6 +33,9 @@ app.post("/register-product", multerImageProduct.single("file"), productControll
 // Rota de listar produtos
 app.get("/list-product", productController.listProduct);
 
+// Rota de pesquisar produtos
+app.post("/search-product", productController.searchProduct);
+
 // Rota de deletar produtos
 app.post("/delete-product", productController.deleteProduct);
 

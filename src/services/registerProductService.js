@@ -53,6 +53,14 @@ const registerProductService = {
 
     deleteProduct: async ({ id }) => {
         await RegisterProducts.destroy({ where: { id } })
+    },
+
+    searchProduct: async (nameProduct) => {
+        const product = await RegisterProducts.findAll({
+            where: { name: nameProduct }
+        });
+
+        return product;
     }
 }
 

@@ -8,7 +8,8 @@ const ResponseCommentModel = (sequelize, DataTypes) => {
     });
 
     ResponseComment.associate = (db) => {
-        ResponseComment.belongsTo(db.CommentsProduct, { as: "responseComment", foreignKey: "commentId" })
+        ResponseComment.belongsTo(db.CommentsProduct, { as: "responseComment", foreignKey: "commentId" });
+        ResponseComment.belongsTo(db.Register, { as: "registerResponse", foreignKey: "userId" });
     }
 
     return ResponseComment;

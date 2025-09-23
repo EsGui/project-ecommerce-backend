@@ -39,7 +39,9 @@ const registerProductService = {
                 { model: Register, as: "userProduct", attributes: { exclude: ["password"]} },
                 { model: CommentsProduct, as: "productComment", include: [
                     { model: Register, as: "commentUser" },
-                    { model: ResponseComment, as: "commentResponse" }
+                    { model: ResponseComment, as: "commentResponse", include: [
+                        { model: Register, as: "registerResponse" }
+                    ] }
                 ]}
             ],
         });

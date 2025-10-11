@@ -1,4 +1,4 @@
-const { Register} = require("../models");
+const { Register } = require("../models");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
@@ -13,46 +13,46 @@ const loginUserService = {
         */
 
     // Esta função (validateData) valida casos de erros.
-    validateData: async (arrayData, userName, password, confirmPassword) => {
+    validateData: async (arrayData, 
+        userName, 
+        password, 
+        confirmPassword,
+        firstName,
+        lastName,
+        email,
+    ) => {
         const user = await Register.findOne({ where: { userName } })
         if (arrayData.some((element) => element.length == 0)) {
             return {
                 status: 400,
                 message: "Por favor! preencha todos os campos",
-                pass: false
             }
         } else if (user) {
             return {
                 status: 400,
                 message: "Nome de usuário já existe",
-                pass: false
             }
         } else if (password != confirmPassword) {
             return {
                 status: 400,
                 message: "Senha e confirmação de senha não conferem",
-                pass: false
             }
         }
-        return {
-            pass: true
-        }
-    },
 
-    createUser: async ({
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-    }) => {
+        const cryptPassword = await bcrypt.hash(password, 10);
+
         await Register.create({
             firstName,
             lastName,
             userName,
             email,
-            password,
+            password: cryptPassword,
         })
+
+        return {
+            status: 200,
+            message: "Cadastro realizado com sucesso!",
+        }
     },
 
     validateLogin: async (email, password) => {
@@ -80,7 +80,7 @@ const loginUserService = {
             status: 200,
             message: { token }
         }
-    }
+    },
 }
 
 module.exports = loginUserService;

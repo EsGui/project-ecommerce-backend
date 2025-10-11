@@ -56,23 +56,17 @@ const loginUserController = {
             confirmPassword,
         ]
 
-        const validate = await loginUserService.validateData(arrayData, userName, password, confirmPassword)
-
-        if (!validate.pass) {
-            return res.status(validate.status).json({ message: validate.message });
-        }
-
-        const cryptPassword = await bcrypt.hash(password, 10);
-
-        await loginUserService.createUser({
+        const validate = await loginUserService.validateData(
+            arrayData, 
+            userName, 
+            password, 
+            confirmPassword,
             firstName,
             lastName,
-            userName,
             email,
-            password: cryptPassword,
-        })
+        )
 
-        return res.status(200).json({ message: "Cadastro realizado com sucesso!" });
+        return res.status(validate.status).json({ message: validate.message });
     }
 }
 

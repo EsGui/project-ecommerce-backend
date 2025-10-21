@@ -1,26 +1,25 @@
-const { Register } = require("../models");
+const { Register, RegisterProducts, RegisterProductsCart } = require("../models");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 
 const loginUserService = {
-        /*
-            Regras de negócio
-
-                - Todos os campos precisam ser preenchidos
-                - O nome de usuário registrado não pode existir no banco de dados
-                - A senha precisa ser igual a confirmação de senha
-        */
-
-    // Esta função (validateData) valida casos de erros.
-    validateData: async (arrayData, 
+    validateData: async ({
         userName, 
         password, 
         confirmPassword,
         firstName,
         lastName,
         email,
-    ) => {
+    }) => {
+        const arrayData = [
+            firstName,
+            lastName,
+            userName,
+            email,
+            password,
+            confirmPassword,
+        ]
         const user = await Register.findOne({ where: { userName } })
         if (arrayData.some((element) => element.length == 0)) {
             return {
@@ -55,7 +54,7 @@ const loginUserService = {
         }
     },
 
-    validateLogin: async (email, password) => {
+    validateLogin: async ({ email, password }) => {
         
         if (!email || !password) {
             return {
@@ -81,6 +80,31 @@ const loginUserService = {
             message: { token }
         }
     },
+
+    persistLoginService: async ({ authorization }) => {
+        const verifyToken = jwt.verify(authorization, process.env.JWT_SECRET);
+
+         const user = await Register.findOne({ 
+            where: { email: verifyToken.email }, 
+            attributes: { exclude: ["password"] },
+            include: [
+                { model: RegisterProducts, as: "productUser" },
+                { model: RegisterProductsCart, as: "userProductCart" }
+            ]
+        });
+
+          if (!user) {
+            return {
+                status: 400,
+                message: "Algo deu errado!",
+            }
+        }
+
+        return {
+            status: 200,
+            message: user,
+        }
+    }
 }
 
 module.exports = loginUserService;

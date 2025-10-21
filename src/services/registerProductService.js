@@ -1,28 +1,45 @@
+const validateDataProduct = require("../middlewares/validateDataProducts");
 const { RegisterProducts, Register, CommentsProduct, ResponseComment } = require("../models")
 
 const registerProductService = {
-    registerProduct: async ({
-        name,
-        price,
-        total,
-        fileNameImage,
-        slug,
-        image,
-        description,
-        userId,
-        category,
-}) => {
-        await RegisterProducts.create({
+    registerProduct: async (req) => {
+        const {
             name,
             price,
-            fileNameImage,
             total,
-            image,
-            slug,
+            description,
+            userId,
+            category,
+        } = req.body
+
+        const validateString = validateDataProduct.validateString([name, description, category])
+        const validateNumber = validateDataProduct.validateNumber([Number(total), Number(price)]);
+        const validate = [name, description, category, total, price].some((element) => !element);
+
+         if (validate || validateString || validateNumber) {
+            return {
+                status: 400,
+                message: "Preencha todos os campos corretamente!"
+            }
+
+        }
+
+        await RegisterProducts.create({
+            name,
+            price: Number(price),
+            total: Number(total),
+            slug: name.toLowerCase().replace(/ /gi, "-"),
+            image: `http://localhost:3001/image-product/${req && req.file && req.file.filename}`,
+            fileNameImage: `${ req && req.file && req.file.filename }`,
             description,
             userId,
             category,
         })
+
+        return {
+            status: 200,
+            message: "Produto cadastrado com sucesso"
+        }
     },
 
     listProducts: async () => {

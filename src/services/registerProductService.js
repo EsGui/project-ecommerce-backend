@@ -95,12 +95,26 @@ const registerProductService = {
         }
     },
 
-    searchProduct: async (nameProduct) => {
+    searchProduct: async ({nameProduct}) => {
         const product = await RegisterProducts.findAll({
-            where: { name: nameProduct }
+            where: { name: nameProduct },
+            include: [
+                {model: Register, as: "userProduct"}
+            ]
         });
 
-        return product;
+        
+        if (!product) {
+            return {
+                message: "Produto não encontrado",
+                status: 400
+            }
+        }
+
+        return {
+            message: product,
+            status: 200
+        }
     }
 }
 

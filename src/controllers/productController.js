@@ -22,17 +22,8 @@ const registerProductController = {
     },
 
     searchProduct: async (req, res) => {
-        const {
-            nameProduct
-        } = req.body;
-
-        const searchProduct = await registerProductService.searchProduct(nameProduct);
-
-        if (!searchProduct) {
-            return res.status(400).json({ message: "Produto não encontrado" })
-        }
-
-        return res.status(200).json({ searchProduct })
+        const product = await registerProductService.searchProduct(req.body);
+        return res.status(product.status).json(product.message)
     }
 }
 

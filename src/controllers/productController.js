@@ -8,22 +8,22 @@ const registerProductController = {
 
     listProduct: async (_req, res) => {
         const products = await registerProductService.listProducts()
-        return res.status(products.status).json(products.message)
+        return res.status(products.status).json({ message: products.message})
     },
 
     listProductSpecific: async (req, res) => {
         const product = await registerProductService.listProductSpecific(req.body);
-        return res.status(product.status).json(product.message)
+        return res.status(product.status).json({ message: product.message })
     },
 
     deleteProduct: async (req, res) => {
         const productService =  await registerProductService.deleteProduct(req.body);
-        return res.status(productService.status).json(productService.message)
+        return res.status(productService.status).json({ message: productService.message })
     },
 
     searchProduct: async (req, res) => {
         const product = await registerProductService.searchProduct(req.body);
-        return res.status(product.status).json(product.message)
+        return res.status(product.status).json({ message: product.message })
     }
 }
 

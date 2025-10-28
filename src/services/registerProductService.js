@@ -48,7 +48,7 @@ const registerProductService = {
             include: [{ model: Register, as: "userProduct" }]
         });
         return {
-            message: {products},
+            message: products,
             status: 200
         }
     },

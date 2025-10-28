@@ -7,9 +7,9 @@ const registerProductController = {
         return res.status(register.status).json({ message: register.message });
     },
 
-    listProduct: async (req, res) => {
+    listProduct: async (_req, res) => {
         const products = await registerProductService.listProducts()
-        return res.status(200).json({ products })
+        return res.status(products.status).json(products.reponse)
     },
 
     listProductSpecific: async (req, res) => {

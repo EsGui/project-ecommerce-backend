@@ -46,7 +46,10 @@ const registerProductService = {
         const products = await RegisterProducts.findAll({
             include: [{ model: Register, as: "userProduct" }]
         });
-        return products
+        return {
+            reponse: {products},
+            status: 200
+        }
     },
 
     listProductSpecific: async (id, slug) => {

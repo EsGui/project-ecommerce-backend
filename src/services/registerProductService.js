@@ -1,5 +1,6 @@
 const validateDataProduct = require("../middlewares/validateDataProducts");
 const { RegisterProducts, Register, CommentsProduct, ResponseComment } = require("../models")
+const fs = require("fs");
 
 const registerProductService = {
     registerProduct: async (req) => {
@@ -85,7 +86,13 @@ const registerProductService = {
     },
 
     deleteProduct: async ({ id }) => {
+        const product = await RegisterProducts.findOne({ where: { id } });
+        fs.unlinkSync(`./src/uploads/image-product/${ product.fileNameImage }`)    
         await RegisterProducts.destroy({ where: { id } })
+        return {
+            message: "Produto deletado com sucesso",
+            status: 200
+        }
     },
 
     searchProduct: async (nameProduct) => {

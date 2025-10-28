@@ -1,5 +1,4 @@
 const registerProductService = require("../services/registerProductService")
-const fs = require("fs");
 
 const registerProductController = {
     registerProduct: async (req, res) => {
@@ -18,17 +17,8 @@ const registerProductController = {
     },
 
     deleteProduct: async (req, res) => {
-        const {
-            id
-        } = req.body;
-
-        const deleteImageProduct = await registerProductService.listProductId({ id });
-
-        fs.unlinkSync(`./src/uploads/image-product/${ deleteImageProduct.fileNameImage }`)
-
-        await registerProductService.deleteProduct({ id });
-
-        return res.status(200).json({ message: "Produto deletado com sucesso" })
+        const productService =  await registerProductService.deleteProduct(req.body);
+        return res.status(productService.status).json(productService.message)
     },
 
     searchProduct: async (req, res) => {

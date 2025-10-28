@@ -47,12 +47,12 @@ const registerProductService = {
             include: [{ model: Register, as: "userProduct" }]
         });
         return {
-            reponse: {products},
+            message: {products},
             status: 200
         }
     },
 
-    listProductSpecific: async (id, slug) => {
+    listProductSpecific: async ({id, slug}) => {
         const product = await RegisterProducts.findOne({ 
             where: { id, slug },
             include: [
@@ -65,7 +65,18 @@ const registerProductService = {
                 ]}
             ],
         });
-        return product;
+
+        if (!product) {
+            return {
+                message: "Produto não encontrado",
+                status: 400
+            }
+        }
+
+        return {
+            message: product,
+            status: 200
+        };
     },
 
     listProductId: async ({ id }) => {

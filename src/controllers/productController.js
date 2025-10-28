@@ -9,20 +9,12 @@ const registerProductController = {
 
     listProduct: async (_req, res) => {
         const products = await registerProductService.listProducts()
-        return res.status(products.status).json(products.reponse)
+        return res.status(products.status).json(products.message)
     },
 
     listProductSpecific: async (req, res) => {
-        const {
-            id,
-            slug
-        } = req.body
-        console.log(id)
-        const product = await registerProductService.listProductSpecific(id, slug);
-        if (!product) {
-            return res.status(400).json({ error: "Produto não encontrado" });
-        }
-        return res.status(200).json({ product });
+        const product = await registerProductService.listProductSpecific(req.body);
+        return res.status(product.status).json(product.message)
     },
 
     deleteProduct: async (req, res) => {

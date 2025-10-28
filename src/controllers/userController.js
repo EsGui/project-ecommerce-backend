@@ -4,7 +4,7 @@ const loginUserService = require("../services/loginUserService");
 const loginUserController = {
     loginController: async (req, res) => {
         const auth = await loginUserService.validateLogin(req.body)
-        return res.status(auth.status).json({ message: auth.message.token })
+        return res.status(auth.status).json({ message: auth.message })
     },
 
     persistLogin: async (req, res) => {

@@ -74,10 +74,11 @@ const loginUserService = {
         }
 
         const token = jwt.sign({email}, process.env.JWT_SECRET);
+        console.log("Aqui ====>>>>", token)
         
         return {
             status: 200,
-            message: { token }
+            message: { token } 
         }
     },
 

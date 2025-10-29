@@ -46,6 +46,11 @@ const saveProductCartService = {
         await RegisterProductsCart.destroy({
             where: { id }
         })
+
+        return {
+            message: "Produto deletado com sucesso",
+            status: 200
+        }
     },
 
     listAll: async () => {

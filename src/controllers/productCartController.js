@@ -7,9 +7,8 @@ const saveProductCartController = {
     },
 
     deleteProduct: async (req, res) => {
-        const { id } = req.body;
-        await saveProductCartService.delete({ id });
-        return res.status(200).json({ message: "Produto deletado com sucesso" })
+        const destroy = await saveProductCartService.delete(req.body);
+        return res.status(destroy.status).json({ message: destroy.message })
     },
 
     listProductCart: async (req, res) => {

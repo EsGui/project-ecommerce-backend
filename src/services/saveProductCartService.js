@@ -55,7 +55,10 @@ const saveProductCartService = {
 
     listAll: async () => {
         const productInCart = await RegisterProductsCart.findAll();
-        return productInCart;
+        return {
+            message: productInCart,
+            status: 200
+        };
     },
 
     update: async ({
@@ -66,6 +69,11 @@ const saveProductCartService = {
             { quantity },
             { where: { id }}
         )
+
+        return {
+            message: "Produto atualizado com sucesso!",
+            status: 200
+        }
     } 
 }
 

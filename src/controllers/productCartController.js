@@ -11,25 +11,14 @@ const saveProductCartController = {
         return res.status(destroy.status).json({ message: destroy.message })
     },
 
-    listProductCart: async (req, res) => {
-        const productsInCart = await saveProductCartService.listAll()
-        return res.status(200).json({ productsInCart });
+    listProductCart: async (_req, res) => {
+        const product = await saveProductCartService.listAll()
+        return res.status(product.status).json({ message: product.message });
     },
 
     updateProductCart: async (req, res) => {
-        const {
-            id,
-            quantity
-        } = req.body;
-
-        console.log({
-            id,
-            quantity
-        })
-
-        await saveProductCartService.update({ id, quantity });
-
-        return res.status(200).json({ message: "Produto atualizado com sucesso!" })
+        const update = await saveProductCartService.update(req.body);
+        return res.status(update.status).json({ message: update.message })
     }
 }
 

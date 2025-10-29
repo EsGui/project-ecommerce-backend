@@ -2,29 +2,8 @@ const saveProductCartService = require("../services/saveProductCartService");
 
 const saveProductCartController = {
     saveProduct: async (req, res) => {
-        const {
-            name,
-            price,
-            quantity,
-            total,
-            image,
-            userId,
-            productId,
-            category,
-        } = req.body;
-
-        await saveProductCartService.save({
-            name,
-            price,
-            quantity,
-            total,
-            image,
-            userId,
-            productId,
-            category,
-        });
-        
-        return res.status(200).json({ message: "Produto salvo no carrinho" })
+        const cart = await saveProductCartService.save(req.body);
+        return res.status(cart.status).json({ message: cart.message })
     },
 
     deleteProduct: async (req, res) => {

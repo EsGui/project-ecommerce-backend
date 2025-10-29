@@ -27,7 +27,17 @@ const saveProductCartService = {
                 productId,
                 category,
             });
+            return {
+                message: "Produto salvo!",
+                status: 200,
+            }
         }
+
+        return {
+            message: "O produto já esta salvo!",
+            status: 400
+        }
+
     },
 
     delete: async ({

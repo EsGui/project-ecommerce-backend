@@ -11,6 +11,11 @@ const registerCommentsProductService = {
             userId, 
             productId
         });
+
+        return {
+            message: "Comentário adicionado com sucesso!",
+            status: 200
+        }
     }
 }
 

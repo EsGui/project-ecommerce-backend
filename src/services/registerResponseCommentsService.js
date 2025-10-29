@@ -11,6 +11,11 @@ const registerResponseCommentsService = {
             userId,
             commentId
         })
+
+        return {
+            message: "Resposta enviada com sucesso!",
+            status: 200
+        }
     },
 
     list: async ({ commentId }) => {

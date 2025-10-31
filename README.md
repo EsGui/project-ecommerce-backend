@@ -2,11 +2,23 @@
 
 ## Descrição do projeto
 
+Este é o projeto de estudos backend que simula um e-commerce online, uso ele para praticar e aprender coisas novas no nodejs.  
+
 O back-end contém uma api CRUD (create, read, update e delete), nessa api tem rotas para login, cadastro de usuários/produtos, comentários nos produto e upload de imagens.
 
-## Tecnologias utilizadas no back-end
+## Funcionalidades
+
+- Login
+- Cadastro de usuários/produtos
+- Perguntas e respostas nos produtos
+- Carrinho de compras
+- Catálogo de produtos
+
+## Dependências utilizadas no back-end
 - bcrypt
 - dotenv
+- cors
+- body-parser
 - sequelize
 - jsonwebtoken
 - multer

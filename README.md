@@ -32,6 +32,10 @@ git clone git@github.com:EsGui/project-ecommerce-backend.git
 Na raiz do projeto rode o comando:
 npm install
 
+Antes de rodar o projeto rode:
+npm run create
+npm run migrate
+
 Rodando o projeto
 npm run dev
 

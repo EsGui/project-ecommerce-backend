@@ -1,4 +1,4 @@
-# Projeto Descontinuado → Refatoração no seguinte link: 
+# Projeto Descontinuado, Refatoração em andamento...
 
 # E-commerce (back-end)
 

@@ -1,3 +1,5 @@
+# Projeto Descontinuado → Refatoração no seguinte link: 
+
 # E-commerce (back-end)
 
 ## Descrição do projeto
